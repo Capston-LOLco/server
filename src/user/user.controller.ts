@@ -23,8 +23,8 @@ export class UserController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const user = await this.userService.findOne(id);
+  async findOne(@Param('user_id') user_id: string) {
+    const user = await this.userService.findOne(user_id);
     return {
       data: user
     };
@@ -36,7 +36,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(id);
+  remove(@Param('id') user_id: string) {
+    return this.userService.remove(user_id);
   }
 }

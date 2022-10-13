@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { throws } from 'assert';
 import { EncryptUtil } from 'src/utiles/encrypt.util';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -18,7 +19,7 @@ export class UserService {
   
   async create(createUserDto: CreateUserDto): Promise<User> {
     
-    const { user_id, user_pw, user_name, user_email } = createUserDto;
+    const { user_id, user_pw, user_name } = createUserDto;
 
     const encryptUtil = new EncryptUtil();
     const [user_hash, user_salt] = encryptUtil.encrypt(user_pw);
@@ -32,7 +33,6 @@ export class UserService {
       user_hash, 
       user_salt, 
       user_name, 
-      user_email 
     });
     
     try {
@@ -49,16 +49,12 @@ export class UserService {
     return users; 
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} user`;
-  // }
-
   async findOne(user_id: string): Promise<User> {
 
     try {
       const found = await this.userRepository.findOne({
         where: {
-            user_id,
+          user_id,
         },
       });
       return found;
@@ -71,17 +67,7 @@ export class UserService {
     return `This action updates a #${id} user`;
   }
 
-  async remove(call: string) {
-    // try {
-    //   const found = await this.userRepository.findOne({
-    //     where: {
-    //         call,
-    //     },
-    //   });
-      
-    // } catch {
-    //   throw new Error("없는 번호 정보입니다.")
-    // } 
-
+  async remove(user_id: string) {
+    
   }
 }

@@ -12,9 +12,6 @@ export class User extends BaseEntity {
     @Column()
     user_name: string;
 
-    @Column()
-    user_email: string;
-
     @Column({
         type: 'varchar',
         length: '1000',
