@@ -2,7 +2,6 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { PushService } from './push.service';
 import { CreatePushDto } from './dto/create-push.dto';
 import { UpdatePushDto } from './dto/update-push.dto';
-import { SendPushDto } from './dto/send-push.dto';
 
 @Controller('push')
 export class PushController {
@@ -33,8 +32,13 @@ export class PushController {
   //   return this.pushService.remove(+id);
   // }
 
+  @Get(':user_id')
+  async findAllByUserId(@Param('user_id') user_id: string) {
+    return await this.findAllByUserId(user_id);
+  }
+
   @Post()
-  sendPush(@Body() sendPushDto: SendPushDto) {
-    this.pushService.sendPush(sendPushDto);
+  sendPush(@Body() cam_id: string) {
+    this.pushService.sendPush(cam_id);
   }
 }

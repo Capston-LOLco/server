@@ -4,6 +4,7 @@ import { CamController } from './cam.controller';
 
 @Module({
   controllers: [CamController],
-  providers: [CamService]
+  providers: [CamService],
+  exports: [CamService],
 })
 export class CamModule {}

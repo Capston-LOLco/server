@@ -1,45 +1,61 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { create } from 'domain';
 import { send } from 'process';
+import { CamService } from 'src/cam/cam.service';
 import { User } from 'src/user/entities/user.entity';
+import { Repository } from 'typeorm';
 import { CreatePushDto } from './dto/create-push.dto';
-import { SendPushDto } from './dto/send-push.dto';
 import { UpdatePushDto } from './dto/update-push.dto';
+import { Push } from './entities/push.entity';
 
 @Injectable()
 export class PushService {
-  // create(createPushDto: CreatePushDto) {
-  //   return 'This action adds a new push';
-  // }
 
-  // findAll() {
-  //   return `This action returns all push`;
-  // }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} push`;
-  // }
-
-  // update(id: number, updatePushDto: UpdatePushDto) {
-  //   return `This action updates a #${id} push`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} push`;
-  // }
-  
-  async sendPush(sendPushDto: SendPushDto) {
-    const user = await this.getUserByCamId(sendPushDto.cam_id);
-    return 'this action is sending push';
+  constructor(
+    @InjectRepository(Push)
+    private readonly pushRepository: Repository<Push>,
+    private readonly camService: CamService,
+  ) {
+    this.pushRepository = pushRepository;
+    this.camService = camService;
   }
 
-  async getUserByCamId(cam_id: string): Promise<string> {
+  async create(cam_id: string): Promise<Push> {
     
-    // db에서 camid를 통해 user 조회하기
-    // await
-    const user = 'user';
+    const created_at = new Date().toLocaleString();
+    const user_id = await this.camService.getUserIdByCamId(cam_id);
 
+    const push = await this.pushRepository.create({
+      created_at,
+      cam_id,
+      // user_id,       string type으로 어떻게 가져오지???.....
+    })
+      
 
-    return user;
+    const savedPush = await this.pushRepository.save(push);
+
+    return savedPush;
+  }
+
+  async findAllByUserId(user_id: string): Promise<Push[]> {
+      
+    const found = await this.pushRepository.find({
+      where: {
+        user_id,
+      },
+    });
+
+    
+    return found;
+  }
+  
+  async sendPush(cam_id: string) {
+    const savedPush = this.create(cam_id);
+
+    const user = await this.camService.getUserIdByCamId(cam_id);
+
+    return 'this action is sending push';
   }
 }

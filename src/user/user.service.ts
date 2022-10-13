@@ -28,7 +28,7 @@ export class UserService {
     
     ////
 
-    const user = await this.userRepository.create({ 
+    const user = this.userRepository.create({ 
       user_id, 
       user_hash, 
       user_salt, 
