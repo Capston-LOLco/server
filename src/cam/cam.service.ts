@@ -15,7 +15,7 @@ export class CamService {
     this.camRespository = camRespository;
   }
 
-  async create(createCamDto: CreateCamDto) {
+  async create(createCamDto: CreateCamDto): Promise<Cam> {
 
     const { cam_id, cam_name, user_id } = createCamDto;
 
@@ -30,30 +30,13 @@ export class CamService {
     return savedCam;
   }
 
-  async getUserIdByCamId(cam_id: string): Promise<String>{
+  async getUserIdByCamId(cam_id: string): Promise<string>{
     const user = await this.camRespository.findOne({
       where: {
         cam_id,
       },
     });
 
-    return user.user_id;
-  }
-
-  findAll() {
-    return `This action returns all cam`;
-  }
-
-  findOne(id: number) {
-
-    return `This action returns a #${id} cam`;
-  }
-
-  update(id: number, updateCamDto: UpdateCamDto) {
-    return `This action updates a #${id} cam`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} cam`;
+    return user.user_id as string;
   }
 }

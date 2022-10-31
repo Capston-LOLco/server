@@ -25,13 +25,13 @@ export class PushService {
   async create(cam_id: string): Promise<Push> {
     
     const created_at = new Date().toLocaleString();
-    const user_id = await this.camService.getUserIdByCamId(cam_id);
-
-    const push = await this.pushRepository.create({
+    const user_id: string = await this.camService.getUserIdByCamId(cam_id);
+    
+    const push = this.pushRepository.create({
       created_at,
       cam_id,
-      // user_id,       string type으로 어떻게 가져오지???.....
-    })
+      user_id,      
+    });
       
 
     const savedPush = await this.pushRepository.save(push);
