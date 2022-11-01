@@ -7,16 +7,14 @@ import { Cam } from './entities/cam.entity';
 
 @Injectable()
 export class CamService {
-
   constructor(
     @InjectRepository(Cam)
-    private readonly camRespository: Repository<Cam>
+    private readonly camRespository: Repository<Cam>,
   ) {
     this.camRespository = camRespository;
   }
 
   async create(createCamDto: CreateCamDto): Promise<Cam> {
-
     const { cam_id, cam_name, user_id } = createCamDto;
 
     const cam = this.camRespository.create({
@@ -30,7 +28,7 @@ export class CamService {
     return savedCam;
   }
 
-  async getUserIdByCamId(cam_id: string): Promise<string>{
+  async getUserIdByCamId(cam_id: string): Promise<string> {
     const user = await this.camRespository.findOne({
       where: {
         cam_id,

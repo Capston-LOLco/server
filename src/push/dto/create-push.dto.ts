@@ -1,4 +1,3 @@
 export class CreatePushDto {
-
-    cam_id: string;
+  cam_id: string;
 }

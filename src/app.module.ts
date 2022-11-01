@@ -12,12 +12,12 @@ import { CamModule } from './cam/cam.module';
 
 @Module({
   imports: [
-    UserModule, 
-    TypeOrmModule.forRoot(typeOrmConfig), 
-    PushModule, CamModule],
+    UserModule,
+    TypeOrmModule.forRoot(typeOrmConfig),
+    PushModule,
+    CamModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-
-export class AppModule {
-}
+export class AppModule {}

@@ -9,48 +9,44 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
-  
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {
     this.userRepository = userRepository;
   }
-  
+
   async create(createUserDto: CreateUserDto): Promise<User> {
-    
     const { user_id, user_pw, user_name } = createUserDto;
 
     const encryptUtil = new EncryptUtil();
     const [user_hash, user_salt] = encryptUtil.encrypt(user_pw);
-   
+
     // 이메일 인증 기능
-    
+
     ////
 
-    const user = this.userRepository.create({ 
-      user_id, 
-      user_hash, 
-      user_salt, 
-      user_name, 
+    const user = this.userRepository.create({
+      user_id,
+      user_hash,
+      user_salt,
+      user_name,
     });
-    
+
     try {
       const savedUser = await this.userRepository.save(user);
       return savedUser;
     } catch {
-      throw new Error("사용자 생성 과정에서 오류가 발생했습니다.")
+      throw new Error('사용자 생성 과정에서 오류가 발생했습니다.');
     }
   }
 
   async findAll(): Promise<User[]> {
-    
-    const users = this.userRepository.find()
-    return users; 
+    const users = this.userRepository.find();
+    return users;
   }
 
   async findOne(user_id: string): Promise<User> {
-
     try {
       const found = await this.userRepository.findOne({
         where: {
@@ -59,7 +55,7 @@ export class UserService {
       });
       return found;
     } catch {
-      throw new Error("없는 번호 정보입니다.")
+      throw new Error('없는 번호 정보입니다.');
     }
   }
 
@@ -68,6 +64,6 @@ export class UserService {
   }
 
   async remove(user_id: string) {
-    
+    // remove user
   }
 }

@@ -7,11 +7,8 @@ import { CamModule } from 'src/cam/cam.module';
 import { CamService } from 'src/cam/cam.service';
 
 @Module({
-  imports: [
-    HttpModule,
-    CamService,
-  ],
+  imports: [HttpModule, CamService],
   controllers: [PushController],
-  providers: [PushService]
+  providers: [PushService],
 })
 export class PushModule {}

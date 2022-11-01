@@ -12,7 +12,6 @@ import { Push } from './entities/push.entity';
 
 @Injectable()
 export class PushService {
-
   constructor(
     @InjectRepository(Push)
     private readonly pushRepository: Repository<Push>,
@@ -23,16 +22,13 @@ export class PushService {
   }
 
   async create(cam_id: string): Promise<Push> {
-    
     const created_at = new Date().toLocaleString();
     const user_id: string = await this.camService.getUserIdByCamId(cam_id);
-    
     const push = this.pushRepository.create({
       created_at,
       cam_id,
-      user_id,      
+      user_id,
     });
-      
 
     const savedPush = await this.pushRepository.save(push);
 
@@ -40,17 +36,14 @@ export class PushService {
   }
 
   async findAllByUserId(user_id: string): Promise<Push[]> {
-      
     const found = await this.pushRepository.find({
       where: {
         user_id,
       },
     });
 
-    
     return found;
   }
-  
   async sendPush(cam_id: string) {
     const savedPush = this.create(cam_id);
 
