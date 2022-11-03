@@ -44,6 +44,7 @@ export class PushService {
 
     return found;
   }
+
   async sendPush(cam_id: string) {
     const savedPush = this.create(cam_id);
 
