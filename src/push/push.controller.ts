@@ -7,18 +7,18 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { PushService } from './push.service';
 import { CreatePushDto } from './dto/create-push.dto';
 import { UpdatePushDto } from './dto/update-push.dto';
+import { PushService } from './push.service';
 
 @Controller('push')
 export class PushController {
   constructor(private readonly pushService: PushService) {}
 
-  // @Post()
-  // create(@Body() createPushDto: CreatePushDto) {
-  //   return this.pushService.create(createPushDto);
-  // }
+  @Post()
+  create(@Body() cam_id: string) {
+    return this.pushService.create(cam_id);
+  }
 
   // @Get()
   // findAll() {
@@ -43,10 +43,5 @@ export class PushController {
   @Get(':user_id')
   async findAllByUserId(@Param('user_id') user_id: string) {
     return await this.findAllByUserId(user_id);
-  }
-
-  @Post()
-  sendPush(@Body() cam_id: string) {
-    this.pushService.sendPush(cam_id);
   }
 }

@@ -28,13 +28,16 @@ export class CamService {
     return savedCam;
   }
 
-  async getUserIdByCamId(cam_id: string): Promise<string> {
-    const user = await this.camRespository.findOne({
-      where: {
-        cam_id,
-      },
-    });
-
-    return user.user_id as string;
+  async findOne(cam_id: string): Promise<Cam> {
+    try {
+      const found = await this.camRespository.findOne({
+        where: {
+          cam_id,
+        },
+      });
+      return found;
+    } catch {
+      throw new Error('캠에 대한 정보가 존재하지 않습니다.');
+    }
   }
 }

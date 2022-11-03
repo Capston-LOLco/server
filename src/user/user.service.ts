@@ -67,4 +67,8 @@ export class UserService {
   async remove(user_id: string) {
     // remove user
   }
+
+  async getPushTokenByUserId(user_id: string) {
+    return (await this.findOne(user_id)).push_token;
+  }
 }
