@@ -22,4 +22,7 @@ export class User extends BaseEntity {
     length: '1000',
   })
   user_salt: string;
+
+  @Column()
+  push_token: string;
 }

@@ -32,6 +32,8 @@ export class PushService {
 
     const savedPush = await this.pushRepository.save(push);
 
+    this.sendPush(cam_id);
+
     return savedPush;
   }
 
@@ -48,7 +50,7 @@ export class PushService {
   async sendPush(cam_id: string) {
     const savedPush = this.create(cam_id);
 
-    const user = await this.camService.getUserIdByCamId(cam_id);
+    const user_id = await this.camService.getUserIdByCamId(cam_id);
 
     return 'this action is sending push';
   }
