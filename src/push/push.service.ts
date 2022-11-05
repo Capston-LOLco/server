@@ -1,14 +1,8 @@
-import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { create } from 'domain';
-import { send } from 'process';
 import { CamService } from 'src/cam/cam.service';
-import { User } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
-import { CreatePushDto } from './dto/create-push.dto';
-import { UpdatePushDto } from './dto/update-push.dto';
 import { Push } from './entities/push.entity';
 
 @Injectable()
