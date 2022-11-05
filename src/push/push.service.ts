@@ -15,7 +15,7 @@ export class PushService {
   ) {
     this.pushRepository = pushRepository;
     this.camService = camService;
-    // this.userService = userService;
+    this.userService = userService;
   }
 
   async create(cam_id: string): Promise<Push> {
