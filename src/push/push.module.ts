@@ -4,7 +4,6 @@ import { PushService } from './push.service';
 import { CamModule } from 'src/cam/cam.module';
 import { UserModule } from 'src/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Cam } from 'src/cam/entities/cam.entity';
 import { Push } from './entities/push.entity';
 
 @Module({
