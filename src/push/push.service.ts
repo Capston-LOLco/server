@@ -40,11 +40,20 @@ export class PushService {
     const savedPush = await this.pushRepository.save(push);
 
     const deviceId = [await this.userService.getPushTokenByUserId(user_id)];
-    const payload = {};
+    const payload = this.buildPayload(cam_name);
     const silent = true;
     this.sendNotification(deviceId, payload, silent);
 
     return savedPush;
+  }
+
+  buildPayload(cam_name: string) {
+    return {
+      notification: {
+        title: '이탈 위험 감지',
+        body: cam_name + ' 캠에서 이탈 위험이 감지되었습니다.',
+      },
+    };
   }
 
   async findAllByUserId(user_id: string): Promise<Push[]> {
