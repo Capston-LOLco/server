@@ -24,6 +24,10 @@ export class PushService {
     this.fcmOptionsProvider = fcmOptionsProvider;
   }
 
+  /* 
+  create()
+  cam 정보 생성
+   */
   async create(cam_id: string): Promise<Push> {
     const created_at = new Date().toLocaleString();
     // const user_id: string = await this.camService.getUserIdByCamId(cam_id);
@@ -47,6 +51,10 @@ export class PushService {
     return savedPush;
   }
 
+  /* 
+  buildPayload()
+  파이어베이스로 전송할 페이로드 생성 
+  */
   buildPayload(cam_name: string) {
     return {
       notification: {
@@ -56,6 +64,10 @@ export class PushService {
     };
   }
 
+  /* 
+  findAllByUserId()
+  유저의 모든 푸시 알림 조회
+   */
   async findAllByUserId(user_id: string): Promise<Push[]> {
     const found = await this.pushRepository.find({
       where: {
@@ -65,9 +77,14 @@ export class PushService {
 
     return found;
   }
-  // deviceIds: 유저토큰배열
-  // payload: fcm 요청 데이터
-  // silent:
+
+  /* 
+  sendNotification()
+  알림 발송
+  deviceIds: 유저토큰배열
+  payload: fcm 요청 데이터
+  silent: 알림 유무
+   */
   async sendNotification(
     deviceIds: Array<string>,
     payload: firebaseAdmin.messaging.MessagingPayload,
