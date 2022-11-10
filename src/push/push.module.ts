@@ -15,10 +15,7 @@ import { FcmOptions } from './interfaces/fcm-options.interface';
 import { FCM_OPTIONS } from './push.constants';
 
 @Global()
-@Module({
-  imports: [TypeOrmModule.forFeature([Push]), CamModule, UserModule],
-  controllers: [PushController],
-})
+@Module({})
 export class PushModule {
   static forRoot(options: FcmOptions): DynamicModule {
     const optionsProvider: ValueProvider = {
@@ -34,6 +31,8 @@ export class PushModule {
         optionsProvider,
       ],
       exports: [PushService],
+      imports: [TypeOrmModule.forFeature([Push]), CamModule, UserModule],
+      controllers: [PushController],
     };
   }
 }
