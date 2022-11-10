@@ -48,12 +48,12 @@ export class UserService {
 
   async findOne(user_id: string): Promise<User> {
     try {
-      const found = await this.userRepository.findOne({
+      const user = await this.userRepository.findOne({
         where: {
           user_id,
         },
       });
-      return found;
+      return user;
     } catch {
       throw new Error('없는 번호 정보입니다.');
     }
