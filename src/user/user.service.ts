@@ -46,13 +46,15 @@ export class UserService {
     return users;
   }
 
-  async findOne(user_id: string): Promise<User> {
+  async findOne(user_id: string): Promise<User | undefined> {
+    console.log('start-UserService.findOne');
     try {
       const user = await this.userRepository.findOne({
         where: {
           user_id,
         },
       });
+      console.log('end-UserService.findOne');
       return user;
     } catch {
       throw new Error('없는 번호 정보입니다.');
@@ -69,5 +71,9 @@ export class UserService {
 
   async getPushTokenByUserId(user_id: string) {
     return (await this.findOne(user_id)).push_token;
+  }
+
+  async getSaltByUserId(user_id: string) {
+    return (await this.findOne(user_id)).user_salt;
   }
 }

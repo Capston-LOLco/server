@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { PushModule } from './push/push.module';
 import { CamModule } from './cam/cam.module';
 import { FcmModule } from 'nestjs-fcm';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { FcmModule } from 'nestjs-fcm';
     FcmModule.forRoot({
       firebaseSpecsPath: __dirname + '/configs/serviceAccountKey.json',
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
