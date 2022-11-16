@@ -36,3 +36,4 @@ lerna-debug.log*
 
 /src/configs/serviceAccountKey.json
 /src/configs/apiSecretKey.json
+/src/temp.ts
