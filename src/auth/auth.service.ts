@@ -17,6 +17,7 @@ export class AuthService {
     const user = await this.userService.findOne(user_id);
     if (user && user.user_hash == hash) {
       const { user_hash, ...result } = user;
+      console.log('비밀번호 일치');
       console.log('end-AuthService.validateUser');
       return result;
     }
@@ -26,7 +27,7 @@ export class AuthService {
 
   async login(user: any) {
     console.log('start-AuthService.login');
-    const payload = { userName: user.user_name, sub: user.user_id };
+    const payload = { user: user.user_id, sub: user.user_pw };
     const result = {
       access_token: this.jwtService.sign(payload),
     };

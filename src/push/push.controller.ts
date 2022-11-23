@@ -15,9 +15,16 @@ import { PushService } from './push.service';
 export class PushController {
   constructor(private readonly pushService: PushService) {}
 
+  /* 
+  create()
+  푸시 알림 데이터 생성
+  실제 필요 함수임
+  */
   @Post()
-  create(@Body() cam_id: string) {
-    return this.pushService.create(cam_id);
+  // create(@Body() createPushDto: CreatePushDto) {
+  create(@Body() user_info: JSON) {
+    // return this.pushService.create(createPushDto.cam_id);
+    return this.pushService.createByUserId(user_info['user_id']);
   }
 
   // @Get()

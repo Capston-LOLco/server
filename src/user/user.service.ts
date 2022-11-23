@@ -70,10 +70,16 @@ export class UserService {
   // }
 
   async getPushTokenByUserId(user_id: string) {
-    return (await this.findOne(user_id)).push_token;
+    console.log('start-UserService.getPushTokenByUserId');
+    const result = (await this.findOne(user_id)).push_token;
+    console.log('end-UserService.getPushTokenByUserId');
+    return result;
   }
 
   async getSaltByUserId(user_id: string) {
-    return (await this.findOne(user_id)).user_salt;
+    console.log('start-UserService.getSaltByUserId');
+    const result = (await this.findOne(user_id)).user_salt;
+    console.log('end-UserService.getSaltByUserId');
+    return result;
   }
 }
