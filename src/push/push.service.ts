@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CamService } from 'src/cam/cam.service';
 import { UserService } from 'src/user/user.service';
@@ -61,7 +61,10 @@ export class PushService {
 
     const savedPush = await this.pushRepository.save(push);
 
-    const deviceId = [await this.userService.getPushTokenByUserId(user_id)];
+    // const token = await this.userService.getPushTokenByUserId(user_id);
+    const token =
+      'fWRJFmfcT7aktj-JRgtFYk:APA91bGUJTbA8zxuoXRl1Z27Wmk4R2agh33jEGognqk489OwvWU_v54KsVtkbobuF2fujETXxL8u7x4Pu-RMEe2ZsFU0HvjRu67LGH5Fo1yhUCArCBreBSXlwSrikxMUxBirYUk7wejW';
+    const deviceId = [token];
     const payload = {
       notification: {
         title: '이탈 위험 감지',
@@ -97,7 +100,10 @@ export class PushService {
         user_id,
       },
     });
-
     return found;
+  }
+
+  async findAll(): Promise<Push[]> {
+    return this.pushRepository.find();
   }
 }
