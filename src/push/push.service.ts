@@ -61,16 +61,9 @@ export class PushService {
 
     const savedPush = await this.pushRepository.save(push);
 
-    // const token = await this.userService.getPushTokenByUserId(user_id);
-    const token =
-      'fWRJFmfcT7aktj-JRgtFYk:APA91bGUJTbA8zxuoXRl1Z27Wmk4R2agh33jEGognqk489OwvWU_v54KsVtkbobuF2fujETXxL8u7x4Pu-RMEe2ZsFU0HvjRu67LGH5Fo1yhUCArCBreBSXlwSrikxMUxBirYUk7wejW';
+    const token = await this.userService.getPushTokenByUserId(user_id);
     const deviceId = [token];
-    const payload = {
-      notification: {
-        title: '이탈 위험 감지',
-        body: '캠에서 이탈 위험이 감지 되었습니다.',
-      },
-    };
+    const payload = this.buildPayload('test');
     const silent = true;
     await this.fcmService.sendNotification(deviceId, payload, silent);
 
