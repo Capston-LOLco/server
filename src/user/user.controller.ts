@@ -23,6 +23,11 @@ export class UserController {
     return user;
   }
 
+  @Post()
+  async createTest(@Body() createUserDto: CreateUserDto) {
+    return createUserDto;
+  }
+
   @Get()
   findAll() {
     return this.userService.findAll();
