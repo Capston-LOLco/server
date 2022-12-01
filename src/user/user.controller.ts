@@ -23,7 +23,7 @@ export class UserController {
     return user;
   }
 
-  @Post()
+  @Post('test')
   async createTest(@Body() createUserDto: CreateUserDto) {
     return createUserDto;
   }
