@@ -16,7 +16,7 @@ export class UserService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const { user_id, user_pw, user_name, push_token } = createUserDto;
+    const { user_id, user_pw, user_name } = createUserDto;
 
     const encryptUtil = new EncryptUtil();
     const [user_hash, user_salt] = encryptUtil.encrypt(user_pw);
@@ -30,7 +30,6 @@ export class UserService {
       user_hash,
       user_salt,
       user_name,
-      push_token,
     });
 
     try {

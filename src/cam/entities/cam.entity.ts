@@ -12,4 +12,7 @@ export class Cam {
 
   @Column()
   cam_name: string;
+
+  @Column()
+  coordinate: string;
 }

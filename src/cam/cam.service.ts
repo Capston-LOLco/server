@@ -1,7 +1,9 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCamDto } from './dto/create-cam.dto';
+import { CreateCoordinateDto } from './dto/create-coordinate.dto';
 // import { UpdateCamDto } from './dto/update-cam.dto';
 import { Cam } from './entities/cam.entity';
 
@@ -39,5 +41,21 @@ export class CamService {
     } catch {
       throw new Error('캠에 대한 정보가 존재하지 않습니다.');
     }
+  }
+
+  async createCoodinate(createCoordinateDto: CreateCoordinateDto): Promise<Cam> {
+    const { user_id, coordinate } = createCoordinateDto;
+
+    const cam = await this.camRespository.findOne({
+      where: {
+        user_id,
+      },
+    });
+
+    cam.coordinate = coordinate;
+
+    const result = await this.camRespository.save(cam);
+
+    return result;
   }
 }
