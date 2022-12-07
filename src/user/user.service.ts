@@ -26,11 +26,14 @@ export class UserService {
 
     ////
 
+    // 임시 토큰 생성
+    const push_token = '';
     const user = this.userRepository.create({
       user_id,
       user_hash,
       user_salt,
       user_name,
+      push_token,
     });
 
     try {
