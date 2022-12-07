@@ -33,7 +33,7 @@ export default class AuthController {
     const jwt = await this.authService.validateUser(userDto);
     res.setHeader('Authorization', 'Bearer ' + jwt);
     console.log('end-AuthControllr.login');
-    return res.json(jwt);
+    return res.json({ jwt, success: true });
   }
 
   @UseGuards(JwtAuthGuard)
