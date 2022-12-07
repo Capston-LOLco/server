@@ -15,14 +15,14 @@ export class UserService {
     this.userRepository = userRepository;
   }
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<User | string> {
     console.log('start - UserService.create');
     const { user_id, user_pw, user_name } = createUserDto;
 
     const validateUser = this.findOne(user_id);
 
     if (validateUser) {
-      throw new Error('이미 등록된 회원이 존재합니다.');
+      return '이미 등록된 회원이 존재합니다.';
     }
 
     const encryptUtil = new EncryptUtil();
