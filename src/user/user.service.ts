@@ -16,6 +16,7 @@ export class UserService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
+    console.log('start - UserService.create');
     const { user_id, user_pw, user_name } = createUserDto;
 
     const encryptUtil = new EncryptUtil();
@@ -34,6 +35,7 @@ export class UserService {
 
     try {
       const savedUser = await this.userRepository.save(user);
+      console.log('end - UserService.create');
       return savedUser;
     } catch {
       throw new Error('사용자 생성 과정에서 오류가 발생했습니다.');
