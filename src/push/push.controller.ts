@@ -24,6 +24,7 @@ export class PushController {
   // create(@Body() createPushDto: CreatePushDto) {
   async create(@Body() user_info: JSON) {
     // return this.pushService.create(createPushDto.cam_id);
+    console.log('PushController.create');
     return this.pushService.createByUserId(user_info['user_id']);
   }
 

@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { pbkdf2Sync } from 'crypto';
+import { User } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { isErrored } from 'stream';
 import { UserDto } from './dto/user.dto';
@@ -29,6 +30,7 @@ export class AuthService {
   //   return null;
   // }
   async validateUser(userDto: UserDto): Promise<string | undefined> {
+    console.log('start - AuthService.validateUser');
     const user = await this.userService.findOne(userDto.user_id);
 
     const salt = await this.userService.getSaltByUserId(user.user_id);
@@ -41,6 +43,7 @@ export class AuthService {
     ).toString('base64');
 
     if (hash != user.user_hash) {
+      console.log('end - authService.validateUser - 로그인 실패');
       throw new UnauthorizedException();
     }
 
@@ -48,18 +51,25 @@ export class AuthService {
       user_name: user.user_name,
       user_id: user.user_id,
     };
-
+    console.log('end - authService.validateUser - 로그인 성공');
     return this.jwtService.sign(payload);
   }
 
   async login(user: any) {
-    console.log('start-AuthService.login');
+    console.log('start - AuthService.login');
     const payload = { user: user.user_id, sub: user.user_pw };
     const result = {
       access_token: this.jwtService.sign(payload),
     };
     // console.log('result: ' + JSON.stringify(result));
-    console.log('end-AuthService.login');
+    console.log('end - AuthService.login');
+    return result;
+  }
+
+  async tokenValidateUser(payload: Payload): Promise<User | undefined> {
+    console.log('start - AuthService.tokenValidateUser');
+    const result = await this.userService.findOne(payload.user_id);
+    console.log('end - AuthService.tokenValidateUser');
     return result;
   }
 }

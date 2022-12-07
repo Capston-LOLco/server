@@ -29,14 +29,19 @@ export default class AuthController {
   // }
   @Post('login')
   async login(@Body() userDto: UserDto, @Res() res: Response): Promise<any> {
+    console.log('start-AuthControllr.login');
     const jwt = await this.authService.validateUser(userDto);
     res.setHeader('Authorization', 'Bearer ' + jwt);
+    console.log('end-AuthControllr.login');
     return res.json(jwt);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Req() req) {
-    return req.user;
+  getProfile(@Req() req: Request): any {
+    console.log('start - AuthController.getProfile');
+    const user = req.user;
+    console.log('end - AuthController.getProfile');
+    return user;
   }
 }
