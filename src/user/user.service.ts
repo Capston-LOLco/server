@@ -19,7 +19,7 @@ export class UserService {
     console.log('start - UserService.create');
     const { user_id, user_pw, user_name } = createUserDto;
 
-    const validateUser = this.findOne(user_id);
+    const validateUser = await this.findOne(user_id);
 
     if (validateUser) {
       return '이미 등록된 회원이 존재합니다.';
